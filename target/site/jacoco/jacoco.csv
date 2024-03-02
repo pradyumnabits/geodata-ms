@@ -1,0 +1,3 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+springboot-gitactions-sonar,com.dev.cicd.data.controller,DataController,0,95,0,4,0,23,0,7,0,5
+springboot-gitactions-sonar,com.dev.cicd.data,DataApplication,0,8,0,0,0,3,0,2,0,2
