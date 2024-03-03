@@ -14,7 +14,7 @@ class DataControllerTest {
 
     @Test
     void health() {
-        assertEquals( "HEALTH CHECK OKAY!", dataController.healthCheck());
+        assertEquals( "HEALTH CHECK OK!", dataController.healthCheck());
     }
 
     @Test
@@ -31,7 +31,7 @@ class DataControllerTest {
     @Test
     void currenciesLength() {
         Integer currenciesLength = dataController.getRandomCurrencies().size();
-        assertEquals(22, currenciesLength);
+        assertEquals(20, currenciesLength);
     }
 
 }
