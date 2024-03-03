@@ -35,7 +35,7 @@ jobs:
   #Test's job
   test-job:
     needs: build-job
-    name: Test Job - Unit tests with JUnit
+    name: Test Job - JUnit
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
     #Job's steps
@@ -73,7 +73,7 @@ jobs:
   sonar:
     #Depends on test's job
     needs: lint-job
-    name: SonarCloud Integration - SonarCloud Analysis
+    name: SonarCloud Integration - Analysis
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
     #Job's steps
