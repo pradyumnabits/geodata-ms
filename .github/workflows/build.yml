@@ -9,7 +9,7 @@ on:
 jobs:
   #Test's job
   build-job:
-    name: Build 
+    name: Build Job
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
     #Job's steps
@@ -35,7 +35,7 @@ jobs:
   #Test's job
   test-job:
     needs: build-job
-    name: Unit tests
+    name: Test Job - Unit tests with JUnit
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
     #Job's steps
@@ -60,7 +60,7 @@ jobs:
         run: mvn clean -B test
   #Lint's job
   lint-job:
-    name: Lint Job with PMD
+    name: Lint Job - PMD 
     runs-on: ubuntu-latest
     needs: test-job
     steps:
@@ -73,7 +73,7 @@ jobs:
   sonar:
     #Depends on test's job
     needs: lint-job
-    name: SonarCloud analysis
+    name: SonarCloud Integration - SonarCloud Analysis
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
     #Job's steps
