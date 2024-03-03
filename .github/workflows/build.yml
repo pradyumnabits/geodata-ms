@@ -8,7 +8,7 @@ on:
       - main
 jobs:
   #Test's job
-  build:
+  build-job:
     name: Build 
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
@@ -33,8 +33,8 @@ jobs:
       - name: Run Build
         run: mvn clean -B package -DskipTests --file pom.xml
   #Test's job
-  tests:
-    #needs: build
+  test-job:
+    needs: build-job
     name: Unit tests
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
@@ -59,10 +59,10 @@ jobs:
       - name: Run Tests
         run: mvn clean -B test
   #Lint's job
-  lint:
+  lint-job:
     name: Lint Job
     runs-on: ubuntu-latest
-    #needs: build
+    needs: test-job
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -84,7 +84,7 @@ jobs:
   #Sonar's Job
   sonar:
     #Depends on test's job
-    needs: tests
+    needs: lint-job
     name: SonarCloud analysis
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
@@ -119,39 +119,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  #Build's job
-  # build:
-  #   #Depends on sonar's job
-  #   needs: sonar
-  #   name: Build
-  #   #Run on Ubuntu using the latest version
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     #Check-out your repository under $GITHUB_WORKSPACE, so your workflow can access it
-  #     - uses: actions/checkout@v1
-  #     #Set up JDK 17
-  #     - name: Set up JDK
-  #       uses: actions/setup-java@v1
-  #       with:
-  #         java-version: '17'
-  #     #Set up Maven cache
-  #     - name: Cache Maven packages
-  #       #This action allows caching dependencies and build outputs to improve workflow execution time.
-  #       uses: actions/cache@v1
-  #       with:
-  #         path: ~/.m2
-  #         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-  #         restore-keys: ${{ runner.os }}-m2
-  #     #Build the application using Maven
-  #     - name: Build with Maven
-  #       run: mvn -B package -DskipTests --file pom.xml
-  #     #Build the application using Maven
-  #     - name: Upload JAR
-  #       #This uploads artifacts from your workflow allowing you to share data between jobs and store data once a workflow is complete.
-  #       uses: actions/upload-artifact@v2
-  #       with:
-  #         #Set artifact name
-  #         name: artifact
-  #         #From this path
-  #         path: target/order-service-0.0.1-SNAPSHOT.jar
   
