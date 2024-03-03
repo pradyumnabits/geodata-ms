@@ -3,8 +3,8 @@ package com.dev.cicd.data.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Locale;
 
@@ -48,7 +48,7 @@ public class DataController {
                                 .put("name", currency.name())
                                 .put("code", currency.code()));
                 }
-                //return currencies;
+                return currencies;
 
         }
 
