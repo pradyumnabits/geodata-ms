@@ -7,7 +7,7 @@ on:
     branches:
       - main
 jobs:
-  #Test's job
+  #Build job
   build-job:
     name: Build Job
     #Run on Ubuntu using the latest version
@@ -32,7 +32,7 @@ jobs:
       #Run Build
       - name: Run Build
         run: mvn clean -B package -DskipTests --file pom.xml
-  #Test's job
+  #Test Job
   test-job:
     needs: build-job
     name: Test Job - JUnit
@@ -57,8 +57,14 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       #Run Tests
       - name: Run Tests
-        run: mvn clean -B test
-  #Lint's job
+        run: mvn clean -B test package
+      - run: mvn --batch-mode --update-snapshots verify
+      - run: mkdir staging && cp target/*.jar staging
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Package
+          path: staging
+  #Lint job
   lint-job:
     name: Lint Job - PMD 
     runs-on: ubuntu-latest
